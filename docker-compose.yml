@@ -1,0 +1,42 @@
+version: '3'
+
+volumes:
+  nextcloud:
+  db:
+
+services:
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - /mnt/raid/nextcloud/db:/var/lib/postgresql/data
+    env_file:
+      - db.env
+
+  app:
+    image: nextcloud:fpm
+    restart: always
+    links:
+      - db
+    volumes:
+      - /mnt/raid/nextcloud/html:/var/www/html
+    environment:
+      - POSTGRES_HOST=db
+    env_file:
+      - db.env
+    depends_on:
+      - db
+    
+  web:
+    image: nginx
+    restart: always
+    ports:
+      - 8080:443
+    links:
+      - app
+    volumes:
+      - /mnt/raid/nextcloud/html:/var/www/html:ro
+      - ./nginx-ssl.conf:/etc/nginx/nginx.conf:ro
+      - ./cert:/cert:ro
+    depends_on:
+      - app
