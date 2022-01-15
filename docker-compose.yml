@@ -20,8 +20,6 @@ services:
       - db
     volumes:
       - /mnt/raid/nextcloud/html:/var/www/html
-    environment:
-      - POSTGRES_HOST=db
     env_file:
       - db.env
     depends_on:
