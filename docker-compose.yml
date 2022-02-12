@@ -18,7 +18,7 @@ services:
     restart: always
 
   app:
-    image: nextcloud:fpm-alpine
+    image: arm64v8/nextcloud:fpm-alpine
     restart: always
     links:
       - db
