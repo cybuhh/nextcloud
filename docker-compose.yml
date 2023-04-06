@@ -20,6 +20,8 @@ services:
   app:
     image: arm64v8/nextcloud:fpm-alpine
     restart: always
+    dns:
+      - 1.1.1.1
     links:
       - db
     volumes:
