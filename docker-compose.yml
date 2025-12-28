@@ -9,7 +9,7 @@ services:
     image: postgres:alpine
     restart: always
     volumes:
-      - /mnt/raid/nextcloud/db:/var/lib/postgresql/data
+      - /mnt/raid/nextcloud/db:/var/lib/postgresql
     env_file:
       - db.env
   
